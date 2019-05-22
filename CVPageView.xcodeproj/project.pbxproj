@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45CDC08122952DF100613B35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC08022952DF100613B35 /* AppDelegate.m */; };
+		45CDC08422952DF100613B35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC08322952DF100613B35 /* ViewController.m */; };
+		45CDC08722952DF100613B35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CDC08522952DF100613B35 /* Main.storyboard */; };
+		45CDC08922952DF200613B35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45CDC08822952DF200613B35 /* Assets.xcassets */; };
+		45CDC08C22952DF200613B35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CDC08A22952DF200613B35 /* LaunchScreen.storyboard */; };
+		45CDC08F22952DF200613B35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC08E22952DF200613B35 /* main.m */; };
+		45CDC09B22952E2100613B35 /* __CVPageContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC09622952E2100613B35 /* __CVPageContentScrollView.m */; };
+		45CDC09C22952E2100613B35 /* CVPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC09922952E2100613B35 /* CVPageView.m */; };
+		45CDC0A222952E4E00613B35 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC09E22952E4E00613B35 /* TestViewController.m */; };
+		45CDC0A322952E4E00613B35 /* PageViewDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC0A122952E4E00613B35 /* PageViewDemoController.m */; };
+		B9D1C96D0A17E55312061CAF /* libPods-CVPageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FCFEBB7C6226983C004BD8 /* libPods-CVPageView.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		45CDC07C22952DF100613B35 /* CVPageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CVPageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45CDC07F22952DF100613B35 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		45CDC08022952DF100613B35 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		45CDC08222952DF100613B35 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45CDC08322952DF100613B35 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		45CDC08622952DF100613B35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45CDC08822952DF200613B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		45CDC08B22952DF200613B35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		45CDC08D22952DF200613B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45CDC08E22952DF200613B35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		45CDC09622952E2100613B35 /* __CVPageContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = __CVPageContentScrollView.m; sourceTree = "<group>"; };
+		45CDC09722952E2100613B35 /* __CVPageContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = __CVPageContentScrollView.h; sourceTree = "<group>"; };
+		45CDC09822952E2100613B35 /* CVPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVPageView.h; sourceTree = "<group>"; };
+		45CDC09922952E2100613B35 /* CVPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVPageView.m; sourceTree = "<group>"; };
+		45CDC09A22952E2100613B35 /* CVPageViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVPageViewProtocol.h; sourceTree = "<group>"; };
+		45CDC09E22952E4E00613B35 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		45CDC09F22952E4E00613B35 /* PageViewDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewDemoController.h; sourceTree = "<group>"; };
+		45CDC0A022952E4E00613B35 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		45CDC0A122952E4E00613B35 /* PageViewDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewDemoController.m; sourceTree = "<group>"; };
+		68A23180C7E28FDD75BACF51 /* Pods-CVPageView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CVPageView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CVPageView/Pods-CVPageView.debug.xcconfig"; sourceTree = "<group>"; };
+		92FCFEBB7C6226983C004BD8 /* libPods-CVPageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CVPageView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72131A444DDFEFAFE7C3263 /* Pods-CVPageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CVPageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-CVPageView/Pods-CVPageView.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45CDC07922952DF100613B35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9D1C96D0A17E55312061CAF /* libPods-CVPageView.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B62A8A2A5285D7CE529652E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68A23180C7E28FDD75BACF51 /* Pods-CVPageView.debug.xcconfig */,
+				C72131A444DDFEFAFE7C3263 /* Pods-CVPageView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		0BFB206D06C136358CA8281B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92FCFEBB7C6226983C004BD8 /* libPods-CVPageView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45CDC07322952DF000613B35 = {
+			isa = PBXGroup;
+			children = (
+				45CDC07E22952DF100613B35 /* CVPageView */,
+				45CDC07D22952DF100613B35 /* Products */,
+				0B62A8A2A5285D7CE529652E /* Pods */,
+				0BFB206D06C136358CA8281B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		45CDC07D22952DF100613B35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45CDC07C22952DF100613B35 /* CVPageView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45CDC07E22952DF100613B35 /* CVPageView */ = {
+			isa = PBXGroup;
+			children = (
+				45CDC09522952E1600613B35 /* Classes */,
+				45CDC07F22952DF100613B35 /* AppDelegate.h */,
+				45CDC08022952DF100613B35 /* AppDelegate.m */,
+				45CDC08222952DF100613B35 /* ViewController.h */,
+				45CDC08322952DF100613B35 /* ViewController.m */,
+				45CDC09D22952E4E00613B35 /* PageViewDemo */,
+				45CDC08522952DF100613B35 /* Main.storyboard */,
+				45CDC08822952DF200613B35 /* Assets.xcassets */,
+				45CDC08A22952DF200613B35 /* LaunchScreen.storyboard */,
+				45CDC08D22952DF200613B35 /* Info.plist */,
+				45CDC08E22952DF200613B35 /* main.m */,
+			);
+			path = CVPageView;
+			sourceTree = "<group>";
+		};
+		45CDC09522952E1600613B35 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				45CDC09722952E2100613B35 /* __CVPageContentScrollView.h */,
+				45CDC09622952E2100613B35 /* __CVPageContentScrollView.m */,
+				45CDC09822952E2100613B35 /* CVPageView.h */,
+				45CDC09922952E2100613B35 /* CVPageView.m */,
+				45CDC09A22952E2100613B35 /* CVPageViewProtocol.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		45CDC09D22952E4E00613B35 /* PageViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				45CDC09F22952E4E00613B35 /* PageViewDemoController.h */,
+				45CDC0A122952E4E00613B35 /* PageViewDemoController.m */,
+				45CDC0A022952E4E00613B35 /* TestViewController.h */,
+				45CDC09E22952E4E00613B35 /* TestViewController.m */,
+			);
+			path = PageViewDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		45CDC07B22952DF100613B35 /* CVPageView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45CDC09222952DF200613B35 /* Build configuration list for PBXNativeTarget "CVPageView" */;
+			buildPhases = (
+				8E74371D39AC935CB5894351 /* [CP] Check Pods Manifest.lock */,
+				45CDC07822952DF100613B35 /* Sources */,
+				45CDC07922952DF100613B35 /* Frameworks */,
+				45CDC07A22952DF100613B35 /* Resources */,
+				7E4411CD1E346C8A91F92FD2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CVPageView;
+			productName = CVPageView;
+			productReference = 45CDC07C22952DF100613B35 /* CVPageView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45CDC07422952DF000613B35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = com.caven;
+				TargetAttributes = {
+					45CDC07B22952DF100613B35 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 45CDC07722952DF000613B35 /* Build configuration list for PBXProject "CVPageView" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 45CDC07322952DF000613B35;
+			productRefGroup = 45CDC07D22952DF100613B35 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				45CDC07B22952DF100613B35 /* CVPageView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		45CDC07A22952DF100613B35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45CDC08C22952DF200613B35 /* LaunchScreen.storyboard in Resources */,
+				45CDC08922952DF200613B35 /* Assets.xcassets in Resources */,
+				45CDC08722952DF100613B35 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7E4411CD1E346C8A91F92FD2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CVPageView/Pods-CVPageView-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CVPageView/Pods-CVPageView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E74371D39AC935CB5894351 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CVPageView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		45CDC07822952DF100613B35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45CDC0A322952E4E00613B35 /* PageViewDemoController.m in Sources */,
+				45CDC0A222952E4E00613B35 /* TestViewController.m in Sources */,
+				45CDC08422952DF100613B35 /* ViewController.m in Sources */,
+				45CDC08F22952DF200613B35 /* main.m in Sources */,
+				45CDC09C22952E2100613B35 /* CVPageView.m in Sources */,
+				45CDC08122952DF100613B35 /* AppDelegate.m in Sources */,
+				45CDC09B22952E2100613B35 /* __CVPageContentScrollView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		45CDC08522952DF100613B35 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45CDC08622952DF100613B35 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		45CDC08A22952DF200613B35 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45CDC08B22952DF200613B35 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		45CDC09022952DF200613B35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		45CDC09122952DF200613B35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		45CDC09322952DF200613B35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68A23180C7E28FDD75BACF51 /* Pods-CVPageView.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CVPageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caven.CVPageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		45CDC09422952DF200613B35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C72131A444DDFEFAFE7C3263 /* Pods-CVPageView.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CVPageView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caven.CVPageView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45CDC07722952DF000613B35 /* Build configuration list for PBXProject "CVPageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45CDC09022952DF200613B35 /* Debug */,
+				45CDC09122952DF200613B35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45CDC09222952DF200613B35 /* Build configuration list for PBXNativeTarget "CVPageView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45CDC09322952DF200613B35 /* Debug */,
+				45CDC09422952DF200613B35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45CDC07422952DF000613B35 /* Project object */;
+}
