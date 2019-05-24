@@ -11,6 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 
+ 注：使用 PageView 的时候最好在其控制器重写方法[shouldAutomaticallyForwardAppearanceMethods], 并返回NO，
+    因为 PageView 的内部显式调用了 viewWillAppear， viewDidAppear 等四个方法，
+    如果没有重写 shouldAutomaticallyForwardAppearanceMethods 方法，会在第一次显示子view的时候重复调用 viewWillAppear 方法
+ */
+
 @interface CVPageView : UIView
 
 /** 设置headerView， 在pageView上会是所有page的公有header，默认为nil */

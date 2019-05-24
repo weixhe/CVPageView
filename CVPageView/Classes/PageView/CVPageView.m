@@ -74,6 +74,7 @@
     
     [self cleanMemory];
     self.pageCount = [self.dataSource numberOfControllers];
+    
     if (self.pageCount <= 0) {
         return;
     }
