@@ -43,6 +43,8 @@ const int TAG_TITLE_VIEW = 100;
     self.showsHorizontalScrollIndicator = NO;
 }
 
+#pragma mark - Public
+#pragma mark 公开方法
 - (void)reloadData {
 
     [self clean];
@@ -74,6 +76,8 @@ const int TAG_TITLE_VIEW = 100;
     self.currentSelectedControl = tabView;
 }
 
+#pragma mark - Private
+#pragma mark 私有方法
 - (void)setupBarView {
     
     CGFloat offsetX = 0.0f;
@@ -181,6 +185,30 @@ const int TAG_TITLE_VIEW = 100;
 
 }
 
+/// 将tab滑动到中间位置
+- (void)scrollToCenter {
+    UIControl *tab = self.currentSelectedControl;
+    // 计算：如果将tab移动到的屏幕中心位置, tab距离左侧的距离
+    CGFloat exceptInScreen = self.bounds.size.width - tab.frame.size.width;
+    CGFloat padding = exceptInScreen * 0.5;
+    
+    // 计算：tab 需要移动的距离
+    CGFloat offsetX = tab.frame.origin.x - padding;
+    
+    // 判断：tab的偏移量超出了scroll的contentSize，需要放置scroll偏移后首尾出现空白情况
+    if (offsetX < 0) {
+        offsetX = 0;
+    }
+    
+    UIControl *last = [self.subViewsCache objectForKey:@(self.subViewsCache.count - 1)];
+    if (offsetX > last.frame.origin.x - exceptInScreen) {
+        offsetX = last.frame.origin.x - exceptInScreen;
+    }
+    
+    CGPoint nextPoint = CGPointMake(offsetX, 0);
+    [self setContentOffset:nextPoint animated:YES];
+}
+
 #pragma mark - Actions
 #pragma mark 事件响应
 
@@ -193,6 +221,8 @@ const int TAG_TITLE_VIEW = 100;
     if (self.tabDelegate && [self.tabDelegate respondsToSelector:@selector(scrollTab:didSelectedIndex:)]) {
         [self.tabDelegate scrollTab:self didSelectedIndex:sender.tag - TAG_TITLE_VIEW];
     }
+    
+    [self scrollToCenter];
 }
 
 #pragma mark - Clean
