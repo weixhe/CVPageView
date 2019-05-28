@@ -9,15 +9,19 @@
 #import "CVScrollTabView.h"
 #import "CVTabTitleView.h"
 
+const int TAG_TITLE_VIEW = 100;
+
 @interface CVScrollTabView ()
 
-@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UIView *> *subViewsCache;
+@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UIControl *> *subViewsCache;
 
 @property (nonatomic, assign) NSInteger tabCount;
 
 @property (nonatomic, assign) BOOL autoAdaptWidth;
 
 @property (nonatomic, assign) CGFloat tabHeight;
+
+@property (nonatomic, strong) UIControl *currentSelectedControl;
 
 @end
 
@@ -40,9 +44,10 @@
 }
 
 - (void)reloadData {
-//    [super reloadData];
+
+    [self clean];
     self.tabCount = [self.tabDataSource numberOfPageTabs];
-    self.autoAdaptWidth = [self.tabDataSource AutoAdaptWidth];
+    self.autoAdaptWidth = [self.tabDataSource autoAdaptWidth];
 
     // 更新 Frame
     if ([self.tabDataSource respondsToSelector:@selector(preferTabScrollHeight)]) {
@@ -53,24 +58,38 @@
     self.frame = frame;
     
     [self setupBarView];
+    [self setSelectedTabIndex:0];
+}
+
+/// 选中某个tab(非交互)
+- (void)setSelectedTabIndex:(NSInteger)index {
+    if (index < 0 && index > self.subViewsCache.count) {
+        return;
+    }
+    
+    
+    UIControl *tabView = [self.subViewsCache objectForKey:@(index)];
+    self.currentSelectedControl.selected = NO;
+    tabView.selected = YES;
+    self.currentSelectedControl = tabView;
 }
 
 - (void)setupBarView {
     
     CGFloat offsetX = 0.0f;
-    
     for (NSUInteger index = 0; index < self.tabCount; index++) {
         UIView *view = [self viewAtIndex:index];
+        view.tag = TAG_TITLE_VIEW + index;
         view.frame = CGRectMake(offsetX, 0, view.frame.size.width, view.frame.size.height);
         [self addSubview:view];
         offsetX = CGRectGetMaxX(view.frame);
     }
+    
+    self.contentSize = CGSizeMake(offsetX, self.frame.size.height);
 }
 
-
-
-- (UIView *)viewAtIndex:(NSInteger)index {
-    UIView *view = [self.subViewsCache objectForKey:@(index)];
+- (UIControl *)viewAtIndex:(NSInteger)index {
+    UIControl *view = [self.subViewsCache objectForKey:@(index)];
     if (!view) {
         if ([self.tabDataSource respondsToSelector:@selector(titlesForTabAtIndex:)]) {
             CVTabTitleView *titleView = [[CVTabTitleView alloc] initWithFrame:CGRectZero];
@@ -87,9 +106,11 @@
                 width = margin * 2 + titleView.titleFitWidth;
             }
             titleView.frame = CGRectMake(0, 0, width, self.tabHeight);
+            [titleView addTarget:self action:@selector(onClickTitleViewAction:) forControlEvents:UIControlEventTouchUpInside];
             view = titleView;
         } else if ([self.tabDataSource respondsToSelector:@selector(viewForTabAtIndex:)]) {
             view = [self.tabDataSource viewForTabAtIndex:index];
+            NSAssert([view isKindOfClass:UIControl.self], @"错误： [viewForTabAtIndex] 方法必须返回一个 UIControl 类或其子类");
         }
         
         if (view) {
@@ -160,31 +181,30 @@
 
 }
 
-//#pragma mark - CVPageViewDataSource
-//#pragma mark PageView 数据源
-//
-///// 返回 pageView中需要显示的控制器个数
-//- (NSInteger)numberOfControllers {
-//    return 0;
-//}
-//
-///// 返回 控制器视图，根据index取不同的控制器
-//- (UIViewController *)pageView:(CVPageView *)pageView controllerAtIndex:(NSInteger)index {
-//    return nil;
-//}
-//
-/////// 返回 视图的Frame，
-////- (CGRect)preferPageFrameAtIndex:(NSInteger)index;
-//
-//#pragma mark - CVPageViewDataSource
-//#pragma mark PageView 代理
-///// 是否需要预加载
-//- (BOOL)isPreLoad {
-//    return NO;
-//}
-//
-///// 根据index 返回 某页视图能否滑动
-//- (BOOL)pageViewCanScollAtIndex:(NSInteger)index {
-//    return YES;
-//}
+#pragma mark - Actions
+#pragma mark 事件响应
+
+/// 响应 titleView 的点击事件（交互）
+- (void)onClickTitleViewAction:(UIControl *)sender {
+    self.currentSelectedControl.selected = NO;
+    sender.selected = YES;
+    self.currentSelectedControl = sender;
+    
+    if (self.tabDelegate && [self.tabDelegate respondsToSelector:@selector(scrollTab:didSelectedIndex:)]) {
+        [self.tabDelegate scrollTab:self didSelectedIndex:sender.tag - TAG_TITLE_VIEW];
+    }
+}
+
+#pragma mark - Clean
+#pragma mark 清空
+- (void)clean {
+    self.currentSelectedControl.selected = NO;
+    self.currentSelectedControl = nil;
+    [self.subViewsCache removeAllObjects];
+}
+
+- (void)dealloc
+{
+    [self clean];
+}
 @end

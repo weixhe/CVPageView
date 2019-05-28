@@ -58,12 +58,12 @@
 #pragma mark -
 /// 返回 tab 的个数
 - (NSInteger)numberOfPageTabs {
-    return 3;
+    return (NSInteger)self.tabTexts.count;
 }
 
 /// 自动适应宽度，如果设置YES，将自动计算每一个tab的宽度；如果设置NO，则整个tabScroll的宽度为基准，平均计算tab的宽度
-- (BOOL)AutoAdaptWidth {
-    return NO;
+- (BOOL)autoAdaptWidth {
+    return YES;
 }
 
 /// 返回 对应 index 的 tab [Normal,Highlighted,Selected]title
@@ -72,7 +72,7 @@
 }
 
 ///// 返回 对应 index 的 tab view， 如果实现了此方法，则[titleForTabAtIndex]将失效
-//- (UIView *)viewForTabAtIndex:(NSInteger)index {
+//- (UIControl *)viewForTabAtIndex:(NSInteger)index {
 //
 //}
 
@@ -94,8 +94,22 @@
     return @[[UIColor blackColor], [UIColor redColor]];
 }
 
-///// 预设：[Normal,Highlighted,Selected]背景颜色
-//- (NSArray <UIColor *> *)preferBGColorsAtIndex:(NSInteger)index {
-//    return @[[UIColor whiteColor]];
-//}
+/// 预设：[Normal,Highlighted,Selected]背景颜色
+- (NSArray <UIColor *> *)preferBGColorsAtIndex:(NSInteger)index {
+    NSArray *colors = @[[UIColor colorWithRed:252/255.0 green:235/255.0 blue:235/255.0 alpha:1],
+                    [UIColor colorWithRed:247/255.0 green:233/255.0 blue:241/255.0 alpha:1],
+                    [UIColor colorWithRed:236/255.0 green:232/255.0 blue:242/255.0 alpha:1],
+                    [UIColor colorWithRed:249/255.0 green:237/255.0 blue:232/255.0 alpha:1],
+                    [UIColor colorWithRed:249/255.0 green:238/255.0 blue:220/255.0 alpha:1],
+                    [UIColor colorWithRed:239/255.0 green:243/255.0 blue:222/255.0 alpha:1],
+                    [UIColor colorWithRed:228/255.0 green:244/255.0 blue:246/255.0 alpha:1],
+                    [UIColor colorWithRed:232/255.0 green:237/255.0 blue:237/255.0 alpha:1]];
+
+    UIColor *oneColor = colors[arc4random() % colors.count];
+    return @[oneColor];
+}
+
+- (void)scrollTab:(CVScrollTabView *)scrollTab didSelectedIndex:(NSInteger)index {
+    NSLog(@"%d", index);
+}
 @end

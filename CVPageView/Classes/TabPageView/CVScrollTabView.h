@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 刷新 tab scroll 界面
 - (void)reloadData;
 
+/// 选中某个tab
+- (void)setSelectedTabIndex:(NSInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

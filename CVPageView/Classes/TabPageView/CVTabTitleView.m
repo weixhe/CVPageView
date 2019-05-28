@@ -44,6 +44,12 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
+    [self.titleLabel sizeToFit];
+    if (self.titleLabel.frame.size.width > self.frame.size.width) {
+        CGRect frame = self.titleLabel.frame;
+        frame.size.width = self.frame.size.width;
+        self.titleLabel.frame = frame;
+    }
     self.titleLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 }
 
@@ -51,6 +57,16 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
     self.titleLabel = [UILabel new];
     [self addSubview:self.titleLabel];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    [self updateContent];
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    [self updateContent];
 }
 
 #pragma mark - Private
@@ -81,12 +97,18 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
     if ([self.cacheTitles objectForKey:key]) {
         return [self.cacheTitles objectForKey:key];
     }
+    if ([self.cacheTitles objectForKey:KEY_NORMAL]) {
+        return [self.cacheTitles objectForKey:KEY_NORMAL];
+    }
     return @"";
 }
 
 - (UIFont *)getTitleFontForKey:(NSString *)key {
     if ([self.cacheTitleFonts objectForKey:key]) {
         return [self.cacheTitleFonts objectForKey:key];
+    }
+    if ([self.cacheTitleFonts objectForKey:KEY_NORMAL]) {
+        return [self.cacheTitleFonts objectForKey:KEY_NORMAL];
     }
     return [UIFont systemFontOfSize:17];
 }
@@ -95,12 +117,18 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
     if ([self.cacheTitleColors objectForKey:key]) {
         return [self.cacheTitleColors objectForKey:key];
     }
+    if ([self.cacheTitleColors objectForKey:KEY_NORMAL]) {
+        return [self.cacheTitleColors objectForKey:KEY_NORMAL];
+    }
     return [UIColor blackColor];
 }
 
 - (UIColor *)getBGColorForKey:(NSString *)key {
     if ([self.cacheBGColors objectForKey:key]) {
         return [self.cacheBGColors objectForKey:key];
+    }
+    if ([self.cacheBGColors objectForKey:KEY_NORMAL]) {
+        return [self.cacheBGColors objectForKey:KEY_NORMAL];
     }
     return [UIColor clearColor];
 }
@@ -146,16 +174,13 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
             default:
                 break;
         }
-        if ([self.cacheTitleColors objectForKey:KEY_NORMAL]) {
-            [self.cacheTitleColors setObject:titleColor forKey:KEY_NORMAL];
-        }
         [self updateContent];
     }
 }
 
 /// 设置 title font
 - (void)setTitleFont:(UIFont *)titleFont state:(UIControlState)state {
-    if ([titleFont isKindOfClass:UIColor.self]) {
+    if ([titleFont isKindOfClass:UIFont.self]) {
         switch (state) {
             case UIControlStateNormal:
                 [self.cacheTitleFonts setObject:titleFont forKey:KEY_NORMAL];
@@ -168,9 +193,6 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
                 break;
             default:
                 break;
-        }
-        if ([self.cacheTitleFonts objectForKey:KEY_NORMAL]) {
-            [self.cacheTitleFonts setObject:titleFont forKey:KEY_NORMAL];
         }
         [self updateContent];
     }
@@ -191,9 +213,6 @@ static NSString *const KEY_SELECTED = @"NoSelectedrmal";
                 break;
             default:
                 break;
-        }
-        if ([self.cacheBGColors objectForKey:KEY_NORMAL]) {
-            [self.cacheBGColors setObject:backgroundColor forKey:KEY_NORMAL];
         }
         [self updateContent];
     }
