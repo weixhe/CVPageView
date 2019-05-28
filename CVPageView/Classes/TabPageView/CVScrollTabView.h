@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 刷新 tab scroll 界面
 - (void)reloadData;
 
-/// 选中某个tab
+/// (非交互)选中某个tab，可以在初始化或者其他时候直接设置
 - (void)setSelectedTabIndex:(NSInteger)index;
 
 @end

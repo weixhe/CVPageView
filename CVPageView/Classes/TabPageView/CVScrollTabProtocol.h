@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CVScrollTabView;
 
+#pragma mark - DataSource
+
 @protocol CVScrollTabDataSource <NSObject>
 
 @required
@@ -42,7 +44,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// 预设：[Normal,Highlighted,Selected]背景颜色
 - (NSArray <UIColor *> *)preferBGColorsAtIndex:(NSInteger)index;
 
+#pragma mark - CVScrollTabView - Mask Slider
+
+/// 使用 mask slider
+- (BOOL)needMaskSlider;
+
+/// 预设：mask slider 圆角
+- (BOOL)preferMaskSliderCorner;
+
+/// 预设：mask slider 高度
+- (CGFloat)preferMaskSliderHeight;
+
+/// 预设：mask slider 底部距离
+- (CGFloat)preferMaskSliderBottom;
+
+/// 预设：mask slider 颜色
+- (UIColor *)preferMaskSliderColorAtIndex:(NSInteger)index;
+
+
 @end
+
+#pragma mark - Delegate
 
 @protocol CVScrollTabDelegate <NSObject>
 

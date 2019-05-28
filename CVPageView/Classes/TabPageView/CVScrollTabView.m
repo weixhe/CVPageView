@@ -13,7 +13,7 @@ const int TAG_TITLE_VIEW = 100;
 
 @interface CVScrollTabView ()
 
-@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UIControl *> *subViewsCache;
+@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UIControl *> *cacheSubViews;
 
 @property (nonatomic, assign) NSInteger tabCount;
 
@@ -21,7 +21,12 @@ const int TAG_TITLE_VIEW = 100;
 
 @property (nonatomic, assign) CGFloat tabHeight;
 
-@property (nonatomic, strong) UIControl *currentSelectedControl;
+@property (nonatomic, assign) NSInteger currentIndex;
+
+@property (nonatomic, assign) BOOL needMaskSlider;
+@property (strong, nonatomic) NSMutableDictionary <NSNumber *, UIColor *> *cacheMaskSliderColors;
+
+@property (nonatomic, strong) UIView *sliderView;
 
 @end
 
@@ -38,7 +43,7 @@ const int TAG_TITLE_VIEW = 100;
 
 - (void)__init__ {
     self.tabHeight = 44;
-    self.subViewsCache = [NSMutableDictionary dictionary];
+    self.cacheSubViews = [NSMutableDictionary dictionary];
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
 }
@@ -60,20 +65,22 @@ const int TAG_TITLE_VIEW = 100;
     self.frame = frame;
     
     [self setupBarView];
+    [self setupSliderView];
     [self setSelectedTabIndex:0];
 }
 
 /// 选中某个tab(非交互)
 - (void)setSelectedTabIndex:(NSInteger)index {
-    if (index < 0 && index > self.subViewsCache.count) {
+    if (index < 0 && index > self.cacheSubViews.count) {
         return;
     }
     
-    
-    UIControl *tabView = [self.subViewsCache objectForKey:@(index)];
-    self.currentSelectedControl.selected = NO;
+    UIControl *tabView = [self.cacheSubViews objectForKey:@(index)];
+    [self viewAtIndex:index].selected = NO;
     tabView.selected = YES;
-    self.currentSelectedControl = tabView;
+    self.currentIndex = index;
+    
+    [self scrollToSelectedView];
 }
 
 #pragma mark - Private
@@ -92,8 +99,35 @@ const int TAG_TITLE_VIEW = 100;
     self.contentSize = CGSizeMake(offsetX, self.frame.size.height);
 }
 
+- (void)setupSliderView {
+    if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(needMaskSlider)]) {
+        self.needMaskSlider = [self.tabDataSource needMaskSlider];
+        if (self.needMaskSlider) {
+            
+            CGFloat sliderH = 2.0f;
+            if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderHeight)]) {
+                sliderH = [self.tabDataSource preferMaskSliderHeight];
+            }
+            CGFloat sliderB = 0.0f;
+            if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderBottom)]) {
+                sliderB = [self.tabDataSource preferMaskSliderBottom];
+            }
+            BOOL sliderCorner = NO;
+            if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderCorner)]) {
+                sliderCorner = [self.tabDataSource preferMaskSliderCorner];
+            }
+            
+            self.sliderView.frame = CGRectMake(0, self.bounds.size.height - sliderB - sliderH, 0, sliderH);
+            if (sliderCorner) {
+                self.sliderView.layer.cornerRadius = sliderH / 2;
+                self.sliderView.layer.masksToBounds = YES;
+            }
+        }
+    }
+}
+
 - (UIControl *)viewAtIndex:(NSInteger)index {
-    UIControl *view = [self.subViewsCache objectForKey:@(index)];
+    UIControl *view = [self.cacheSubViews objectForKey:@(index)];
     if (!view) {
         if ([self.tabDataSource respondsToSelector:@selector(titlesForTabAtIndex:)]) {
             CVTabTitleView *titleView = [[CVTabTitleView alloc] initWithFrame:CGRectZero];
@@ -118,7 +152,7 @@ const int TAG_TITLE_VIEW = 100;
         }
         
         if (view) {
-            [self.subViewsCache setObject:view forKey:@(index)];
+            [self.cacheSubViews setObject:view forKey:@(index)];
         }
         
     }
@@ -185,9 +219,9 @@ const int TAG_TITLE_VIEW = 100;
 
 }
 
-/// 将tab滑动到中间位置
-- (void)scrollToCenter {
-    UIControl *tab = self.currentSelectedControl;
+/// （非交互）点击了tab（或直接设置）后需要滑动一下tab，如果可能的话，尽量将tab滑动到中间位置
+- (void)scrollToSelectedView {
+    UIControl *tab = [self viewAtIndex:self.currentIndex];
     // 计算：如果将tab移动到的屏幕中心位置, tab距离左侧的距离
     CGFloat exceptInScreen = self.bounds.size.width - tab.frame.size.width;
     CGFloat padding = exceptInScreen * 0.5;
@@ -200,13 +234,27 @@ const int TAG_TITLE_VIEW = 100;
         offsetX = 0;
     }
     
-    UIControl *last = [self.subViewsCache objectForKey:@(self.subViewsCache.count - 1)];
+    UIControl *last = [self.cacheSubViews objectForKey:@(self.cacheSubViews.count - 1)];
     if (offsetX > last.frame.origin.x - exceptInScreen) {
         offsetX = last.frame.origin.x - exceptInScreen;
     }
     
     CGPoint nextPoint = CGPointMake(offsetX, 0);
     [self setContentOffset:nextPoint animated:YES];
+    
+    
+    if (self.needMaskSlider) {
+        CGRect frame = self.sliderView.frame;
+        frame.origin.x = tab.frame.origin.x;
+        frame.size.width = tab.frame.size.width;
+        self.sliderView.frame = frame;
+        
+        if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderColorAtIndex:)]) {
+            self.sliderView.backgroundColor = [self.tabDataSource preferMaskSliderColorAtIndex:self.currentIndex];
+        } else {
+            self.sliderView.backgroundColor = [UIColor redColor];
+        }
+    }
 }
 
 #pragma mark - Actions
@@ -214,23 +262,34 @@ const int TAG_TITLE_VIEW = 100;
 
 /// 响应 titleView 的点击事件（交互）
 - (void)onClickTitleViewAction:(UIControl *)sender {
-    self.currentSelectedControl.selected = NO;
+    [self viewAtIndex:self.currentIndex].selected = NO;
     sender.selected = YES;
-    self.currentSelectedControl = sender;
+    self.currentIndex = sender.tag - TAG_TITLE_VIEW;
     
     if (self.tabDelegate && [self.tabDelegate respondsToSelector:@selector(scrollTab:didSelectedIndex:)]) {
         [self.tabDelegate scrollTab:self didSelectedIndex:sender.tag - TAG_TITLE_VIEW];
     }
     
-    [self scrollToCenter];
+    [self scrollToSelectedView];
+}
+
+#pragma mark - Lazy Load
+- (UIView *)sliderView {
+    if (!_sliderView) {
+        _sliderView = [UIView new];
+        [self addSubview:_sliderView];
+    }
+    return _sliderView;
 }
 
 #pragma mark - Clean
 #pragma mark 清空
 - (void)clean {
-    self.currentSelectedControl.selected = NO;
-    self.currentSelectedControl = nil;
-    [self.subViewsCache removeAllObjects];
+    [_sliderView removeFromSuperview];  _sliderView = nil;
+    [[self.cacheSubViews allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.currentIndex = 0;
+    [self.cacheSubViews removeAllObjects];
+    [self.cacheMaskSliderColors removeAllObjects];
 }
 
 - (void)dealloc

@@ -35,7 +35,7 @@
     [btn1 addTarget:self action:@selector(TabPageViewDemo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
-    self.tabTexts = @[@"A", @"BBBB", @"CC", @"AAA", @"DDDDD", @"EFAD", @"HHHHHH", @"DDGGGGASDF"];
+    self.tabTexts = @[@"AHGFH", @"BBJKLKYBB", @"CKJDSDGC", @"OKHGNAAA", @"DDDDD,J", @"EFADRFBD", @"HHHHHH", @"DDGGGGASDF"];
     CVScrollTabView * tabView = [[CVScrollTabView alloc] initWithFrame:CGRectMake(0, 300, self.view.frame.size.width, 30)];
     tabView.backgroundColor = [UIColor lightGrayColor];
     tabView.tabDataSource = self;
@@ -108,6 +108,33 @@
     UIColor *oneColor = colors[arc4random() % colors.count];
     return @[oneColor];
 }
+
+
+/// 使用 mask slider
+- (BOOL)needMaskSlider {
+    return YES;
+}
+
+///// 预设：mask slider 圆角
+//- (BOOL)preferMaskSliderCorner {
+//    return YES;
+//}
+//
+///// 预设：mask slider 高度
+//- (CGFloat)preferMaskSliderHeight {
+//    return 4;
+//}
+//
+///// 预设：mask slider 底部距离
+//- (CGFloat)preferMaskSliderBottom {
+//    return 2;
+//}
+//
+///// 预设：mask slider 颜色
+//- (UIColor *)preferMaskSliderColorAtIndex:(NSInteger)index {
+//    return [UIColor redColor];
+//}
+
 
 - (void)scrollTab:(CVScrollTabView *)scrollTab didSelectedIndex:(NSInteger)index {
     NSLog(@"%d", index);
