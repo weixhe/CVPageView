@@ -22,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// (非交互)选中某个tab，可以在初始化或者其他时候直接设置
 - (void)setSelectedTabIndex:(NSInteger)index;
 
+/// 根据index，获取某一个tab
+- (UIControl *)tabAtIndex:(NSInteger)index;
+
+/// 根据tab，获取其所在的index
+- (NSInteger)indexForTab:(UIControl *)tab;
+
 @end
 
 NS_ASSUME_NONNULL_END

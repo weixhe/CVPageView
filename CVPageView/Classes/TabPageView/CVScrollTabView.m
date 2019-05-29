@@ -83,6 +83,25 @@ const int TAG_TITLE_VIEW = 100;
     [self scrollToSelectedView];
 }
 
+/// 根据index，获取某一个tab
+- (UIControl *)tabAtIndex:(NSInteger)index {
+    UIControl *view = [self.cacheSubViews objectForKey:@(index)];
+    return view;
+}
+
+/// 根据tab，获取其所在的index
+- (NSInteger)indexForTab:(UIControl *)tab {
+    
+    __block NSInteger result = -1;
+    [self.cacheSubViews enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, UIControl * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([tab isEqual:obj]) {
+            result = key.integerValue;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
 #pragma mark - Private
 #pragma mark 私有方法
 - (void)setupBarView {

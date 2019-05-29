@@ -50,6 +50,9 @@
     [self.view addSubview:tabView];
     [tabView reloadData];
     
+    UIControl *ccc = [tabView tabAtIndex:2];
+    NSLog(@"%@", ccc);
+    NSLog(@"%d", [tabView indexForTab:ccc]);
 }
 
 - (void)onClickBtnAction {
