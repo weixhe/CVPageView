@@ -235,8 +235,8 @@ const int TAG_TITLE_VIEW = 100;
     }
     
     UIControl *last = [self.cacheSubViews objectForKey:@(self.cacheSubViews.count - 1)];
-    if (offsetX > last.frame.origin.x - exceptInScreen) {
-        offsetX = last.frame.origin.x - exceptInScreen;
+    if (offsetX > last.frame.origin.x - (self.bounds.size.width - last.frame.size.width)) {
+        offsetX = last.frame.origin.x - (self.bounds.size.width - last.frame.size.width);
     }
     
     CGPoint nextPoint = CGPointMake(offsetX, 0);

@@ -20,6 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIView *centerLine = [UIView new];
+    centerLine.backgroundColor = [UIColor redColor];
+    [self.view addSubview:centerLine];
+    centerLine.frame = CGRectMake(0, 0, 1, self.view.frame.size.height);
+    centerLine.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 100, 200, 40);
     btn.backgroundColor = [UIColor redColor];
