@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "PageViewDemoController.h"
+#import "TabPageViewController.h"
 #import "CVScrollTabView.h"
 
 @interface ViewController () <CVScrollTabDelegate, CVScrollTabDataSource>
@@ -61,7 +62,8 @@
 }
 
 - (void)TabPageViewDemo {
-    
+    TabPageViewController *vc = [[TabPageViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -125,6 +127,11 @@
     return YES;
 }
 
+
+//- (CGFloat)preferMaskSliderMargin {
+//    return 20;
+//}
+//
 ///// 预设：mask slider 圆角
 //- (BOOL)preferMaskSliderCorner {
 //    return YES;

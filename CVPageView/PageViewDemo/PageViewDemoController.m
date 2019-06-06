@@ -27,23 +27,28 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.titlesArray = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K"];
     
-    CGFloat width = self.view.frame.size.width / self.titlesArray.count;
-    for (NSUInteger index = 0; index < self.titlesArray.count; index++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(width * index, 100, width, 40);
-        btn.tag = 100 + index;
-        btn.backgroundColor = [UIColor orangeColor];
-        [btn setTitle:self.titlesArray[index] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(onClickBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-        
-        if (index == 0) {
-            [self onClickBtnAction:btn];
-        }
-        
-    }
+//    CGFloat width = self.view.frame.size.width / self.titlesArray.count;
+//    for (NSUInteger index = 0; index < self.titlesArray.count; index++) {
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        btn.frame = CGRectMake(width * index, 100, width, 40);
+//        btn.tag = 100 + index;
+//        btn.backgroundColor = [UIColor orangeColor];
+//        [btn setTitle:self.titlesArray[index] forState:UIControlStateNormal];
+//        [btn addTarget:self action:@selector(onClickBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:btn];
+//
+//        if (index == 0) {
+//            [self onClickBtnAction:btn];
+//        }
+//
+//    }
     
-    self.pageView = [[CVPageView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height - 140 - 30)];
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, self.view.frame.size.width, 40)];
+    textLabel.backgroundColor = [UIColor orangeColor];
+    textLabel.text = @"这里仅仅测试了 PageView 功能，可以左右滑动翻页";
+    [self.view addSubview:textLabel];
+    
+    self.pageView = [[CVPageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(textLabel.frame), self.view.frame.size.width, self.view.frame.size.height - 128)];
     self.pageView.delegate = self;
     self.pageView.dataSource = self;
     [self.view addSubview:self.pageView];
@@ -94,7 +99,7 @@
 
 /// 是否需要预加载
 - (BOOL)isPreLoad {
-    return YES;
+    return NO;
 }
 
 /// 根据index 返回 某页视图能否滑动

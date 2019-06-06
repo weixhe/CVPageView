@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4566DF7D229F84C300D292F4 /* TabPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566DF7C229F84C300D292F4 /* TabPageViewController.m */; };
+		4566DF81229FBD4E00D292F4 /* CVTabPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566DF80229FBD4E00D292F4 /* CVTabPageView.m */; };
+		45A1E67922A7664F0066C8FC /* TabPageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A1E67822A7664F0066C8FC /* TabPageListViewController.m */; };
+		45A1E67F22A767EF0066C8FC /* TabPageErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A1E67E22A767EF0066C8FC /* TabPageErrorView.m */; };
 		45B070332297CC15002D97C9 /* CVTabTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B070312297CC14002D97C9 /* CVTabTitleView.m */; };
 		45B070342297CC15002D97C9 /* CVScrollTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B070322297CC14002D97C9 /* CVScrollTabView.m */; };
 		45CDC08122952DF100613B35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CDC08022952DF100613B35 /* AppDelegate.m */; };
@@ -23,6 +27,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4566DF7B229F84C300D292F4 /* TabPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabPageViewController.h; sourceTree = "<group>"; };
+		4566DF7C229F84C300D292F4 /* TabPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabPageViewController.m; sourceTree = "<group>"; };
+		4566DF7F229FBD4E00D292F4 /* CVTabPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CVTabPageView.h; sourceTree = "<group>"; };
+		4566DF80229FBD4E00D292F4 /* CVTabPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CVTabPageView.m; sourceTree = "<group>"; };
+		45A1E67722A7664F0066C8FC /* TabPageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabPageListViewController.h; sourceTree = "<group>"; };
+		45A1E67822A7664F0066C8FC /* TabPageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabPageListViewController.m; sourceTree = "<group>"; };
+		45A1E67D22A767EF0066C8FC /* TabPageErrorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabPageErrorView.h; sourceTree = "<group>"; };
+		45A1E67E22A767EF0066C8FC /* TabPageErrorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabPageErrorView.m; sourceTree = "<group>"; };
 		45B0702E2297CC14002D97C9 /* CVScrollTabProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVScrollTabProtocol.h; sourceTree = "<group>"; };
 		45B0702F2297CC14002D97C9 /* CVScrollTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVScrollTabView.h; sourceTree = "<group>"; };
 		45B070302297CC14002D97C9 /* CVTabTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVTabTitleView.h; sourceTree = "<group>"; };
@@ -81,9 +93,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4566DF7E229FBD2300D292F4 /* TabPageView */ = {
+			isa = PBXGroup;
+			children = (
+				4566DF7F229FBD4E00D292F4 /* CVTabPageView.h */,
+				4566DF80229FBD4E00D292F4 /* CVTabPageView.m */,
+			);
+			path = TabPageView;
+			sourceTree = "<group>";
+		};
 		458CDD4222968CF4003E9AEC /* TabPageViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4566DF7B229F84C300D292F4 /* TabPageViewController.h */,
+				4566DF7C229F84C300D292F4 /* TabPageViewController.m */,
+				45A1E67722A7664F0066C8FC /* TabPageListViewController.h */,
+				45A1E67822A7664F0066C8FC /* TabPageListViewController.m */,
+				45A1E67D22A767EF0066C8FC /* TabPageErrorView.h */,
+				45A1E67E22A767EF0066C8FC /* TabPageErrorView.m */,
 			);
 			path = TabPageViewDemo;
 			sourceTree = "<group>";
@@ -107,7 +134,7 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
-		45B0702D2297CBCE002D97C9 /* TabPageView */ = {
+		45B0702D2297CBCE002D97C9 /* TabView */ = {
 			isa = PBXGroup;
 			children = (
 				45B0702E2297CC14002D97C9 /* CVScrollTabProtocol.h */,
@@ -116,7 +143,7 @@
 				45B070302297CC14002D97C9 /* CVTabTitleView.h */,
 				45B070312297CC14002D97C9 /* CVTabTitleView.m */,
 			);
-			path = TabPageView;
+			path = TabView;
 			sourceTree = "<group>";
 		};
 		45CDC07322952DF000613B35 = {
@@ -159,7 +186,8 @@
 		45CDC09522952E1600613B35 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				45B0702D2297CBCE002D97C9 /* TabPageView */,
+				4566DF7E229FBD2300D292F4 /* TabPageView */,
+				45B0702D2297CBCE002D97C9 /* TabView */,
 				458CDD4622969CB4003E9AEC /* PageView */,
 				458CDD4822969CDA003E9AEC /* Private */,
 			);
@@ -300,9 +328,13 @@
 				45CDC0A222952E4E00613B35 /* TestViewController.m in Sources */,
 				45CDC08422952DF100613B35 /* ViewController.m in Sources */,
 				45B070342297CC15002D97C9 /* CVScrollTabView.m in Sources */,
+				45A1E67F22A767EF0066C8FC /* TabPageErrorView.m in Sources */,
 				45B070332297CC15002D97C9 /* CVTabTitleView.m in Sources */,
+				4566DF7D229F84C300D292F4 /* TabPageViewController.m in Sources */,
+				4566DF81229FBD4E00D292F4 /* CVTabPageView.m in Sources */,
 				45CDC08F22952DF200613B35 /* main.m in Sources */,
 				45CDC09C22952E2100613B35 /* CVPageView.m in Sources */,
+				45A1E67922A7664F0066C8FC /* TabPageListViewController.m in Sources */,
 				45CDC08122952DF100613B35 /* AppDelegate.m in Sources */,
 				45CDC09B22952E2100613B35 /* __CVPageContentScrollView.m in Sources */,
 			);

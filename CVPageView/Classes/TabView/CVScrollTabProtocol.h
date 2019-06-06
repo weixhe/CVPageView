@@ -55,6 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 预设：mask slider 高度
 - (CGFloat)preferMaskSliderHeight;
 
+/// 预设：mask slider 的两端相对于文字的距离，如果没有实现本方法，则slider的宽度与tab相同，如果实现了本方法，则与文字相同，且可以预设两端距离文字距离
+- (CGFloat)preferMaskSliderMargin;
+
 /// 预设：mask slider 底部距离
 - (CGFloat)preferMaskSliderBottom;
 
@@ -67,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Delegate
 
 @protocol CVScrollTabDelegate <NSObject>
-
+@optional
 - (void)scrollTab:(CVScrollTabView *)scrollTab didSelectedIndex:(NSInteger)index;
 
 @end

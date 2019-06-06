@@ -75,10 +75,9 @@ const int TAG_TITLE_VIEW = 100;
         return;
     }
     
-    UIControl *tabView = [self.cacheSubViews objectForKey:@(index)];
-    [self viewAtIndex:index].selected = NO;
-    tabView.selected = YES;
+    [self viewAtIndex:self.currentIndex].selected = NO;
     self.currentIndex = index;
+    [self viewAtIndex:self.currentIndex].selected = YES;
     
     [self scrollToSelectedView];
 }
@@ -241,32 +240,50 @@ const int TAG_TITLE_VIEW = 100;
 /// （非交互）点击了tab（或直接设置）后需要滑动一下tab，如果可能的话，尽量将tab滑动到中间位置
 - (void)scrollToSelectedView {
     UIControl *tab = [self viewAtIndex:self.currentIndex];
-    // 计算：如果将tab移动到的屏幕中心位置, tab距离左侧的距离
-    CGFloat exceptInScreen = self.bounds.size.width - tab.frame.size.width;
-    CGFloat padding = exceptInScreen * 0.5;
-    
-    // 计算：tab 需要移动的距离
-    CGFloat offsetX = tab.frame.origin.x - padding;
-    
-    // 判断：tab的偏移量超出了scroll的contentSize，需要放置scroll偏移后首尾出现空白情况
-    if (offsetX < 0) {
-        offsetX = 0;
+    if (self.contentSize.width > self.frame.size.width) {
+        // 计算：如果将tab移动到的屏幕中心位置, tab距离左侧的距离
+        CGFloat exceptInScreen = self.bounds.size.width - tab.frame.size.width;
+        CGFloat padding = exceptInScreen * 0.5;
+        
+        // 计算：tab 需要移动的距离
+        CGFloat offsetX = tab.frame.origin.x - padding;
+        
+        // 判断：tab的偏移量超出了scroll的contentSize，需要放置scroll偏移后首尾出现空白情况
+        if (offsetX < 0) {
+            offsetX = 0;
+        }
+        
+        UIControl *last = [self.cacheSubViews objectForKey:@(self.cacheSubViews.count - 1)];
+        if (offsetX > last.frame.origin.x - (self.bounds.size.width - last.frame.size.width)) {
+            offsetX = last.frame.origin.x - (self.bounds.size.width - last.frame.size.width);
+        }
+        
+        //    if (offsetX > self.contentSize.width - self.frame.size.width) {
+        //        offsetX = self.contentSize.width - self.frame.size.width;
+        //    }
+        
+        CGPoint nextPoint = CGPointMake(offsetX, 0);
+        [self setContentOffset:nextPoint animated:YES];
     }
-    
-    UIControl *last = [self.cacheSubViews objectForKey:@(self.cacheSubViews.count - 1)];
-    if (offsetX > last.frame.origin.x - (self.bounds.size.width - last.frame.size.width)) {
-        offsetX = last.frame.origin.x - (self.bounds.size.width - last.frame.size.width);
-    }
-    
-    CGPoint nextPoint = CGPointMake(offsetX, 0);
-    [self setContentOffset:nextPoint animated:YES];
     
     
     if (self.needMaskSlider) {
-        CGRect frame = self.sliderView.frame;
-        frame.origin.x = tab.frame.origin.x;
-        frame.size.width = tab.frame.size.width;
-        self.sliderView.frame = frame;
+        
+        CGFloat sliderW = 0.0f;
+        if ([tab isKindOfClass:CVTabTitleView.self] && self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderMargin)]) {
+            // 如果实现了本方法，则与文字相同，且可以预设两端距离文字距离
+            sliderW = ((CVTabTitleView *)tab).titleFitWidth + [self.tabDataSource preferMaskSliderMargin];
+        } else {
+            // 如果没有实现本方法，则slider的宽度与tab相同
+            sliderW = tab.frame.size.width;
+        }
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = self.sliderView.frame;
+            frame.size.width = sliderW;
+            self.sliderView.frame = frame;
+            self.sliderView.center = CGPointMake(tab.center.x, self.sliderView.center.y);
+        }];
         
         if (self.tabDataSource && [self.tabDataSource respondsToSelector:@selector(preferMaskSliderColorAtIndex:)]) {
             self.sliderView.backgroundColor = [self.tabDataSource preferMaskSliderColorAtIndex:self.currentIndex];

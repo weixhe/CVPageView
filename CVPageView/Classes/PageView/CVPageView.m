@@ -33,8 +33,6 @@
 
 /** 总页数 */
 @property (nonatomic, assign) NSInteger pageCount;
-/** 是否需要预加载 */
-@property (nonatomic, assign) BOOL isPreLoad;
 
 @end
 
@@ -72,6 +70,11 @@
 /// 刷新数据
 - (void)reloadData {
     
+    if ([self.dataSource shouldAutomaticallyForwardAppearanceMethods]) {
+        NSLog(@"警告：CVPageView 的 shouldAutomaticallyForwardAppearanceMethods 方法请返回 NO");
+        return;
+    }
+    
     [self cleanMemory];
     self.pageCount = [self.dataSource numberOfControllers];
     
@@ -79,9 +82,6 @@
         return;
     }
     
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(isPreLoad)]) {
-        self.isPreLoad = [self.dataSource isPreLoad];
-    }
     
     [self updateScrollViewLayoutIfNeed];
     
@@ -103,12 +103,6 @@
         
         if ([self.delegate respondsToSelector:@selector(pageView:willChangeToIndex:)]) {
             [self.delegate pageView:self willChangeToIndex:self.currentIndex];
-        }
-        
-        // 判断某index位置的视图能否滑动到下一页或者上一页
-        if ([self.dataSource respondsToSelector:@selector(pageViewCanScollAtIndex:)]) {
-            BOOL result = [self.dataSource pageViewCanScollAtIndex:self.currentIndex];
-            self.scrollView.scrollEnabled = result;
         }
        
         if (animation) {
@@ -178,9 +172,9 @@
                         backgroundView.hidden = NO;
                         [bSelf moveView:currentView toIndex:bSelf.currentIndex];
                         [bSelf moveView:lastView toIndex:bSelf.lastIndex];
-                        [bSelf scrollBeginAnimation:NO];
-                        [bSelf scrollAnimation:NO];
-                        [bSelf scrollEndAnimation:NO];
+                        [bSelf scrollBeginAnimation];
+                        [bSelf scrollAnimation];
+                        [bSelf scrollEndAnimation];
                     }
                 }];
 
@@ -188,9 +182,9 @@
                 //... index和currentindex一样，则什么都不做
             }
         } else {
-            [self scrollBeginAnimation:animation];
-            [self scrollAnimation:animation];
-            [self scrollEndAnimation:animation];
+            [self scrollBeginAnimation];
+            [self scrollAnimation];
+            [self scrollEndAnimation];
         }
     }
 }
@@ -242,27 +236,23 @@
 #pragma mark - Private Scroll
 #pragma mark 非交互切换页面
 /// 滚动当前页
-- (void)scrollAnimation:(BOOL)animation {
-    [self.scrollView setContentOffset:CGPointMake(self.currentIndex * self.scrollView.frame.size.width, 0) animated:animation];
+- (void)scrollAnimation {
+    [self.scrollView setContentOffset:CGPointMake(self.currentIndex * self.scrollView.frame.size.width, 0) animated:NO];
 }
 
 /// 滚动动画开始
-- (void)scrollBeginAnimation:(BOOL)animation {
-    UIViewController *fromVC = [self controllerAtIndex:self.lastIndex];
-    UIViewController *toVC = [self controllerAtIndex:self.currentIndex];
-    [toVC beginAppearanceTransition:YES animated:animation];
+- (void)scrollBeginAnimation {
+    [[self controllerAtIndex:self.currentIndex] beginAppearanceTransition:YES animated:NO];
     if (self.currentIndex != self.lastIndex) {
-        [fromVC beginAppearanceTransition:NO animated:animation];
+        [[self controllerAtIndex:self.lastIndex] beginAppearanceTransition:NO animated:NO];
     }
 }
 
 /// 滚动动画结束
-- (void)scrollEndAnimation:(BOOL)animation {
-    UIViewController *fromVC = [self controllerAtIndex:self.lastIndex];
-    UIViewController *toVC = [self controllerAtIndex:self.currentIndex];
-    [toVC endAppearanceTransition];
+- (void)scrollEndAnimation {
+    [[self controllerAtIndex:self.currentIndex] endAppearanceTransition];
     if (self.currentIndex != self.lastIndex) {
-        [fromVC endAppearanceTransition];
+        [[self controllerAtIndex:self.lastIndex] endAppearanceTransition];
     }
 }
 
@@ -289,12 +279,6 @@
 #pragma mark 交互切换页面
 /// PageView 即将拖拽，记录当前的偏移量，暂时先将当前index，赋值给gussToIndex
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
-    // 判断某index位置的视图能否滑动到下一页或者上一页
-    if ([self.dataSource respondsToSelector:@selector(pageViewCanScollAtIndex:)]) {
-        BOOL result = [self.dataSource pageViewCanScollAtIndex:self.currentIndex];
-        self.scrollView.scrollEnabled = result;
-    }
     
     if (!scrollView.isDecelerating) {
         self.originOffset = scrollView.contentOffset.x;
@@ -324,22 +308,6 @@
             if ([self.delegate respondsToSelector:@selector(pageView:willChangeToIndex:)]) {
                 [self.delegate pageView:self willChangeToIndex:self.guessToIndex];
             }
-            UIViewController *fromVC = [self controllerAtIndex:self.currentIndex];
-            UIViewController *toVc = [self controllerAtIndex:self.guessToIndex];
-            
-            if (self.isPreLoad) { // 预加载：在滑动过程中，闪现过去的页也会调用 viewWillAppear，所以 lastGuestIndex 对应的页需要调用viewWillDisAppear
-                [toVc beginAppearanceTransition:YES animated:YES]; // toVC即将显示，调用viewWillAppear
-                if (lastGuestIndex == self.currentIndex) {  // 这里：离开了当前页，滑到了相邻的下一页
-                    [fromVC beginAppearanceTransition:NO animated:YES]; // fromVC即将消失，调用viewWillDisAppear
-                }
-                
-                // 预加载：在滑动过程中，闪现过去的页也需要调用 viewWillAppear 和 viewWillDisAppear
-                if (lastGuestIndex != self.currentIndex && lastGuestIndex >= 0 && lastGuestIndex < self.pageCount) {
-                    UIViewController *lastGuestVC = [self controllerAtIndex:lastGuestIndex];
-                    [lastGuestVC beginAppearanceTransition:NO animated:YES];
-                    [lastGuestVC endAppearanceTransition];  // 成对出现，对应调用 viewDidAppear 或 viewDidDisAppear
-                }
-            }
         }
     }
     
@@ -355,21 +323,13 @@
     self.currentIndex = newIndex;
     
     if (newIndex == oldIndex) { // 滑动最终结果还是当前页
-        if (self.guessToIndex >= 0 && self.guessToIndex < self.pageCount) {
-            [[self controllerAtIndex:oldIndex] beginAppearanceTransition:YES animated:YES];
-            [[self controllerAtIndex:oldIndex] endAppearanceTransition];
-            
-            [[self controllerAtIndex:self.guessToIndex] beginAppearanceTransition:NO animated:YES];
-            [[self controllerAtIndex:self.guessToIndex] endAppearanceTransition];
-        }
+        // ...
     } else {
-        if (!self.isPreLoad) {
-            [[self controllerAtIndex:newIndex] beginAppearanceTransition:YES animated:YES];
-            [[self controllerAtIndex:oldIndex] beginAppearanceTransition:NO animated:YES];
-        }
-        [[self controllerAtIndex:newIndex] endAppearanceTransition];
-        [[self controllerAtIndex:oldIndex] endAppearanceTransition];
+        [[self controllerAtIndex:newIndex] beginAppearanceTransition:YES animated:YES];
+        [[self controllerAtIndex:oldIndex] beginAppearanceTransition:NO animated:YES];
         
+        [[self controllerAtIndex:oldIndex] endAppearanceTransition];
+        [[self controllerAtIndex:newIndex] endAppearanceTransition];
     }
     
     self.originOffset = scrollView.contentOffset.x;

@@ -19,9 +19,20 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
+@property (nonatomic, assign) BOOL isFirstLoad;
+
 @end
 
 @implementation TestViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.isFirstLoad = YES;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,17 +61,19 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.dataSource removeAllObjects];
-            for (int i = 0; i < 10; i ++) {
+            for (int i = 0; i < 20; i ++) {
                 [self.dataSource addObject:[NSString stringWithFormat:@"%@-%d", self.text, i + 1]];
             }
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
             [self.tableView reloadData];
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         });
     }];
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -76,7 +89,6 @@
         });
     }];
     
-    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,6 +98,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (self.isFirstLoad) {
+        [self.tableView.mj_header beginRefreshing];
+    }
+    self.isFirstLoad = NO;
     NSLog(@"%@ did appear", self.text);
 }
 
