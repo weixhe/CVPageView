@@ -37,9 +37,6 @@
 /// 返回 控制器视图，根据index取不同的控制器
 - (UIViewController *)pageView:(CVPageView *)pageView controllerAtIndex:(NSInteger)index;
 
-/// 请返回NO，显示控制 viewWillAppear 和 viewWillDisappear
-- (BOOL)shouldAutomaticallyForwardAppearanceMethods;
-
 ///// 返回 视图的Frame，
 //- (CGRect)preferPageFrameAtIndex:(NSInteger)index;
 

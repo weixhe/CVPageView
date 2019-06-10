@@ -70,8 +70,8 @@
 /// 刷新数据
 - (void)reloadData {
     
-    if ([self.dataSource shouldAutomaticallyForwardAppearanceMethods]) {
-        NSLog(@"警告：CVPageView 的 shouldAutomaticallyForwardAppearanceMethods 方法请返回 NO");
+    if ([self.superController shouldAutomaticallyForwardAppearanceMethods]) {
+        NSLog(@"警告：CVPageView 所在的控制器中必须实现 shouldAutomaticallyForwardAppearanceMethods 方法，且返回 NO");
         return;
     }
     
